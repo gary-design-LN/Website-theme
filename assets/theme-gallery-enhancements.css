@@ -1,0 +1,135 @@
+/* ForSewing product gallery enhancements: show every thumbnail and add a usable lightbox. */
+
+/* Let the image column move naturally with the rest of the product page.
+   Dawn normally makes this column sticky on desktop. */
+@media screen and (min-width: 750px) {
+  .product__column-sticky {
+    position: static;
+    top: auto;
+    z-index: auto;
+  }
+
+  /* Keep thumbnails in one horizontal row. Additional images can be scrolled
+     sideways instead of creating a second row outside the visible area. */
+  .product--thumbnail_slider .thumbnail-slider {
+    align-items: center;
+  }
+
+  .product--thumbnail_slider .thumbnail-list.slider--tablet-up {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    width: 100%;
+    padding-bottom: 0.5rem;
+  }
+
+  .product--thumbnail_slider .thumbnail-list.slider--tablet-up .thumbnail-list__item.slider__slide {
+    flex: 0 0 calc((100% - 4rem) / 5);
+    width: calc((100% - 4rem) / 5);
+    max-width: none;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+
+  .product--thumbnail_slider .thumbnail-slider > .slider-button {
+    display: flex;
+    flex: 0 0 auto;
+  }
+}
+
+.product-media-modal__dialog {
+  position: relative;
+}
+
+.product-media-modal__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 7rem 2rem;
+  overflow: auto;
+}
+
+.product-media-modal__content > * {
+  display: none !important;
+  margin: auto !important;
+  max-width: min(92vw, 150rem);
+  max-height: calc(100vh - 10rem);
+  object-fit: contain;
+}
+
+.product-media-modal__content > *.active {
+  display: block !important;
+}
+
+.product-media-modal__content > img.active {
+  width: auto;
+  height: auto;
+  cursor: zoom-in;
+  transform-origin: center center;
+  transition: transform 160ms ease;
+}
+
+.product-media-modal__controls {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.product-media-modal__controls button {
+  pointer-events: auto;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.18);
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  font: inherit;
+}
+
+.product-media-modal__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  font-size: 2.6rem !important;
+}
+
+.product-media-modal__nav--prev { left: 1.5rem; }
+.product-media-modal__nav--next { right: 1.5rem; }
+
+.product-media-modal__zoom-controls {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.product-media-modal__zoom-controls button {
+  border-radius: 0.6rem;
+  padding: 0.7rem 1rem;
+}
+
+.product-media-modal__toggle {
+  z-index: 3;
+}
+
+@media screen and (max-width: 749px) {
+  .product-media-modal__content {
+    padding: 7rem 5.5rem 2rem;
+  }
+
+  .product-media-modal__nav--prev { left: 0.5rem; }
+  .product-media-modal__nav--next { right: 0.5rem; }
+
+  .product-media-modal__zoom-controls {
+    top: 1.4rem;
+  }
+}
